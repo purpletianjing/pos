@@ -2,7 +2,7 @@ function filterElements(val,allItems) {
   var changeResult = {};
   allItems.forEach(function(item) {
     if(val.split('-')[0] == item.barcode) {
-      changeResult = {name:item.name,unit:item.unit,price:item.price,count:parseInt(val.split('-')[1] || 1)};
+      changeResult = {barcode:item.barcode,name:item.name,unit:item.unit,price:item.price,count:parseInt(val.split('-')[1] || 1)};
     }
   });
   return changeResult;
@@ -16,18 +16,26 @@ function countSameElements(result,element) {
       return;
     }
   }
-  result.push({name:element.name,count:element.count,
+  result.push({barcode:element.barcode,name:element.name,count:element.count,
               unit:element.unit,price:element.price,priceSum:(element.price * element.count)});
   return;
 }
 
-function countGiveGoods(result,giveGoods) {
-  result.forEach(function(val) {
-    if(val.count > 2) {
+function isPromotions(val,giveGoods) {
+  promotionBarcode = loadPromotions();
+  promotionBarcode[0].barcodes.forEach(function(item) {
+    if((val.count > 2) && (val.barcode == item)) {
       val.priceSum -= parseInt(val.count / 3) * val.price;
       giveGoods.push({name:val.name,count:parseInt(val.count / 3),unit:val.unit,
                       priceSum:parseInt(val.count / 3) * val.price});
     }
+  });
+  return giveGoods;
+}
+
+function countGiveGoods(result,giveGoods) {
+  result.forEach(function(val) {
+    isPromotions(val,giveGoods);
   });
 }
 
