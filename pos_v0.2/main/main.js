@@ -9,17 +9,15 @@ function filterElements(val,allItems) {
 }
 
 function countSameElements(result,element) {
-  var sign = 0;
-  result.forEach(function(item) {
-    if(item.name == element.name) {
-      item.count++;
-      item.priceSum += element.price;
-      sign = 1;
+  for (var i = 0; i < result.length; i++) {
+    if(result[i].name == element.name) {
+      result[i].count++;
+      result[i].priceSum += element.price;
+      return;
     }
-  });
-  if(sign === 0) {
-    result.push({name:element.name,count:1,unit:element.unit,price:element.price,priceSum:element.price});
   }
+    result.push({name:element.name,count:1,unit:element.unit,price:element.price,priceSum:element.price});
+    return;
 }
 
 function produceResult(result,profit) {
