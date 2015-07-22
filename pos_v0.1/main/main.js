@@ -1,25 +1,25 @@
 function mergeSameElements(val,result) {
-  var sign = 0;
-  result.forEach(function(item) {
-    if(item.name == val.name) {
-      item.count++;
-      item.priceSum += val.price;
-      sign = 1;
+  // var sign = 0;
+  // result.forEach(function(item) {
+  //   if(item.name == val.name) {
+  //     item.count++;
+  //     item.priceSum += val.price;
+  //     sign = 1;
+  //   }
+  // });
+  // if(sign === 0) {
+  //   result.push({name:val.name,count:1,unit:val.unit,price:val.price,priceSum:val.price});
+  // }
+  for (var i = 0; i < result.length; i++) {
+    if(result[i].name == val.name) {
+      result[i].count++;
+      result[i].priceSum += val.price;
+      return;
     }
-  });
-  if(sign === 0) {
-    result.push({name:val.name,count:1,unit:val.unit,price:val.price,priceSum:val.price});
   }
-//   result.some(function(item) {
-//     if(item.name == val.name) {
-//       item.count++;
-//       item.priceSum += val.price;
-//       return;
-//     }
-//   });
-//     result.push({name:val.name,count:1,unit:val.unit,price:val.price,priceSum:val.price});
-//     return;
- }
+  result.push({name:val.name,count:1,unit:val.unit,price:val.price,priceSum:val.price});
+  return;
+}
 
 function produceResult(result,profit) {
   var sum = 0;
