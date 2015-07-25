@@ -1,4 +1,5 @@
 function filterElements(val, allItems) {
+  "use strict";
   var changeResult = {};
   allItems.forEach(function(item) {
     if (val == item.barcode) {
@@ -67,17 +68,22 @@ function concatReceiptInfo(result) {
   return profit;
 }
 
-function countInfo()
-
-function printReceipt(inputs) {
-  "use strict";
-  var allItems = loadAllItems();
+function countInfo(inputs) {
   var result = [];
+  var allItems = loadAllItems();
   inputs.map(function(val) {
     return filterElements(val, allItems);
   }).forEach(function(element) {
     countSameElements(result, element);
   });
+  return result;
+}
+
+function printReceipt(inputs) {
+  "use strict";
+
+  var result = countInfo(inputs);
+
   var profit = concatReceiptInfo(result);
   console.log(profit);
 }

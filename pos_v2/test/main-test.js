@@ -12,7 +12,7 @@ describe('pos', function() {
       'ITEM000003-2',
       'ITEM000005',
       'ITEM000005',
-      'ITEM000005'
+      'ITEM000005'h
     ];
     dateDigitToString = function(num) {
       return num < 10 ? '0' + num : num;

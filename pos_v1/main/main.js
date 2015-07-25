@@ -108,52 +108,23 @@
 //   console.log(outputStr);
 // }
 
+function
 
-
-
-
-
-
-function mapInputs(val) {
-  var splitResult = val.split('-');
-  allItems = loadAllItems();
-  for (var i = 0; i < allItems.length; i++) {
-    if (allItems[i].barcode === splitResult[0]) {
-      return {
-        barcode: allItems[i].barcode,
-        name: allItems[i].name,
-        count: splitResult[1] || 1,
-        price: allItems[i].price,
-        realMoney: (splitResult[1] || 1) * allItems[i].price
-      };
-    }
-  }
+function judgeEveryGood(val) {
+  var discountGoods = loadPromotions();
+  discountGoods.forEach(function(item) {
+    judgeEveryDiscount(item,val);
+  });
 }
 
-function promotionSaveMoney(val) {
-  val.realSum = val.count * val.money;
-  if(val.count > 2 ) {
-    val.saveMoney = 5;
-  }
-}
+function judgeDiscountGoods(allItems) {
 
-function countMapResult(mapResult) {
-  var countResult = [];
-  //mapResult.forEach(function(val)
-  for(var i = 0; i < mapResult.length; i++){    
-    countResult.forEach(function(item) {
-      if(mapResult[i].barcode === item.barcode) {
-        item.count += mapResult[i].count;
-        item.realMoney += mapResult[i].count * item.price;
-      }
-    });
-  }
+  allItems.forEach(function(val) {
+    judgeEveryGoods(val);
+  });
 }
 
 function printReceipt(inputs) {
-  var mapResult = inputs.map(function(val) {
-    return mapInputs(val);
-  });
-  countMapResult(mapResult);
-  console.log(mapResult);
+  var allItems = loadAllItems();
+  judgeDiscountGood(allItems);
 }
