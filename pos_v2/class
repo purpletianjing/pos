@@ -1,0 +1,39 @@
+function Person(name) {
+  this.name = name;
+  this._name = name;//标志name是一个私有属性
+}
+
+定义实例方法：
+Person.prototype.getName = function() {
+  return this.name;
+}
+
+
+Person.getName = function() {
+//里边不能用this;
+}
+
+1.定义类时候定义构造函数，第一个字母大写
+2.属性先写到类里边this.name
+3.getName是实例化方法，必须用prototype定义
+
+继承：
+Student是一个类，Person是个父类
+继承方法：Student.prototype = new Person();
+
+prototype叫做原型，顺着prototype找属性，叫做原型链
+
+
+var Person = (function() {
+   function getLen(name) {
+     return name.length;
+}
+   function People(name) {
+   this.name = name;
+   this.nameLen = getLen(name);
+}
+   People.prototype.getName = function() {
+    return this.name;
+}
+   return Person;
+})();
